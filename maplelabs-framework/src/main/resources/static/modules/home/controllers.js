@@ -6,6 +6,7 @@ angular.module('Home')
     ['$scope','$rootScope', '$location','HomeService',
     function ($scope,$rootScope, $location,HomeService) {
     	
+    	
     	$scope.getComments=function(){
     		 $scope.dataLoading = true;
     		 $scope.showAddComment=true;
@@ -23,7 +24,7 @@ angular.module('Home')
     	$scope.deleteComment=function(commentId){
     		HomeService.deleteComment($scope.messages[commentId].id,function(response,isError){
     			if(!isError){
-    				alert("message deleted");
+    				//alert("message deleted");
     				$scope.getComments();
     			}else{
     				alert("cannot delete");
@@ -32,8 +33,8 @@ angular.module('Home')
     		
     	}
     	
-    	$scope.editComment=function(commentId){
-    		HomeService.editComment($scope.messages[commentId].id,function(response,isError){
+    	$scope.editComment=function(commentText,commentId){
+    		HomeService.editComment($scope.messages[commentId].id,commentText,function(response,isError){
     			if(!isError){
     				alert("message updated");
     				$scope.getComments();

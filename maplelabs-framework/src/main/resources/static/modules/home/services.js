@@ -40,12 +40,12 @@ angular.module('Home')
         	 
          }
          
-         service.editComment=function(commentId,callback){
+         service.editComment=function(commentId,commentText,callback){
         	 var url="User/"+$rootScope.currentUserID+"/Comment/"+commentId;
         	 $http({
 	        	    url: url, 
 	        	    method: "POST",
-	        	    params: {token: 'testToken'}
+	        	    params: {token: 'testToken',comment:commentText}
 	        	 }).success(function (response) {
 	                 callback(response);
 	             }).error(function(response){
