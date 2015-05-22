@@ -32,7 +32,7 @@ public class CustomConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/index*", "/scripts/**", "/modules/**", "/",
-						"/about", "/login")
+						"/about", "/login", "/Config/AuthConfig", "/User", "/User/{userId}/Comment", "/User/{userId}/Comment/{commentId}")
 				.permitAll()
 				.anyRequest()
 				.authenticated()

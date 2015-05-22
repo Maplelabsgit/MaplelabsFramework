@@ -54,6 +54,8 @@ public class UserCommentFindByIdProcessor extends RestProcessor<com.maplelabs.fr
 	@Override
 	protected void doProcess() {
 		
+		id = (int) request.data;
+		
         try {
         	domain = this.userCommentService.findUserCommentById(id);
 		} catch (Exception e) {

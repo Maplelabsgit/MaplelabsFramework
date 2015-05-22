@@ -1,5 +1,8 @@
 package com.maplelabs.framework.guestbook.rest.controller;
 
+import javax.ws.rs.core.Response;
+
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.maplelabs.framework.guestbook.response.RestRequest;
 import com.maplelabs.framework.guestbook.response.UserComment;
-import com.maplelabs.framework.guestbook.rest.processor.UserCommentCreationProcessor;
+import com.maplelabs.framework.guestbook.rest.delegators.RestDelegator;
 import com.maplelabs.framework.guestbook.rest.processor.UserCommentDeletionByIdProcessor;
 import com.maplelabs.framework.guestbook.rest.processor.UserCommentDeletionByUserIdProcessor;
 import com.maplelabs.framework.guestbook.rest.processor.UserCommentFindByIdProcessor;
@@ -19,90 +23,111 @@ import com.maplelabs.framework.guestbook.rest.processor.UserCommentUpdationProce
 public class UserCommentController {
 
 	@Autowired
-    private UserCommentCreationProcessor userCommentCreationProcessor;
-	
-	@Autowired
-    private UserCommentFindByUserIdProcessor userCommentFindByUserIdProcessor;
-
-	@Autowired
-	private UserCommentFindByIdProcessor userCommentFindByIdProcessor;
-	
-	@Autowired
-	private UserCommentDeletionByUserIdProcessor userCommentDeletionByUserIdProcessor;
-	
-	@Autowired
-	private UserCommentDeletionByIdProcessor userCommentDeletionByIdProcessor;
-	
-	@Autowired
-	private UserCommentUpdationProcessor userCommentUpdationProcessor;
+	private RestDelegator restDelegator;
 	
     @RequestMapping(value = "/User/{userId}/Comment", method = RequestMethod.POST, produces = "application/json")
-    public String createComment(@PathVariable int userId, @RequestParam("comment") String comment) {
+    public Response createComment(@PathVariable int userId, @RequestParam("comment") String comment) {
     	
     	UserComment input = new UserComment();
     	input.setUserId(userId);
     	input.setComment(comment);
     	
-    	userCommentCreationProcessor.setModel(input);
+    	restDelegator.setRequest(new RestRequest<UserComment>(input));
+    	restDelegator.setServiceType("UserCommentCreation");
     	
-    	String response = userCommentCreationProcessor.execute();
+    	try {
+			restDelegator.executeService();
+		} catch (BeansException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	
-        return response;
+        return restDelegator.getResponse();
     }
     
     @RequestMapping(value = "/User/{userId}/Comment", method = RequestMethod.GET, produces = "application/json")
-    public String findCommentsByUserId(@PathVariable int userId) {
+    public Response findCommentsByUserId(@PathVariable int userId) {
     	
-    	userCommentFindByUserIdProcessor.setUserId(userId);
+    	restDelegator.setRequest(new RestRequest<Integer>(userId));
+    	restDelegator.setServiceType("UserCommentFindByUserId");
     	
-    	String response = userCommentFindByUserIdProcessor.execute();
-         
-        return response;
+    	try {
+			restDelegator.executeService();
+		} catch (BeansException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        return restDelegator.getResponse();
     }
     
     @RequestMapping(value = "/User/{userId}/Comment/{commentId}", method = RequestMethod.GET, produces = "application/json")
-    public UserComment findCommentById(@PathVariable int commentId) {
+    public Response findCommentById(@PathVariable int commentId) {
     	
-    	userCommentFindByIdProcessor.setId(commentId);
+    	restDelegator.setRequest(new RestRequest<Integer>(commentId));
+    	restDelegator.setServiceType("UserCommentFindById");
     	
-    	UserComment userComment = userCommentFindByIdProcessor.execute();
-         
-        return userComment;
+    	try {
+			restDelegator.executeService();
+		} catch (BeansException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        return restDelegator.getResponse();
     }
     
     @RequestMapping(value = "/User/{userId}/Comment", method = RequestMethod.DELETE, produces = "application/json")
-    public String deleteCommentsByUser(@PathVariable int userId) {
+    public Response deleteCommentsByUser(@PathVariable int userId) {
     	
-    	userCommentDeletionByUserIdProcessor.setUserId(userId);
+    	restDelegator.setRequest(new RestRequest<Integer>(userId));
+    	restDelegator.setServiceType("UserCommentDeletionByUserId");
     	
-    	String response = userCommentDeletionByUserIdProcessor.execute();
-         
-        return response;
+    	try {
+			restDelegator.executeService();
+		} catch (BeansException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        return restDelegator.getResponse();
     }
     
     @RequestMapping(value = "/User/{userId}/Comment/{commentId}", method = RequestMethod.DELETE, produces = "application/json")
-    public String deleteComment(@PathVariable int commentId) {
+    public Response deleteComment(@PathVariable int commentId) {
     	
-    	userCommentDeletionByIdProcessor.setId(commentId);
+    	restDelegator.setRequest(new RestRequest<Integer>(commentId));
+    	restDelegator.setServiceType("UserCommentDeletionById");
     	
-    	String response = userCommentDeletionByIdProcessor.execute();
-         
-        return response;
+    	try {
+			restDelegator.executeService();
+		} catch (BeansException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        return restDelegator.getResponse();
     }
     
     @RequestMapping(value = "/User/{userId}/Comment/{commentId}", method = RequestMethod.POST, produces = "application/json")
-    public String updateComment(@PathVariable int userId, @PathVariable int commentId, @RequestParam("comment") String comment) {
+    public Response updateComment(@PathVariable int userId, @PathVariable int commentId, @RequestParam("comment") String comment) {
     	
     	UserComment input = new UserComment();
     	input.setId(commentId);
     	input.setUserId(userId);
     	input.setComment(comment);
 
-    	userCommentUpdationProcessor.setModel(input);
+    	restDelegator.setRequest(new RestRequest<UserComment>(input));
+    	restDelegator.setServiceType("UserCommentUpdation");
     	
-    	String response = userCommentUpdationProcessor.execute();
-         
-        return response;
+    	try {
+			restDelegator.executeService();
+		} catch (BeansException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        return restDelegator.getResponse();
     }
 
 }  

@@ -22,12 +22,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.maplelabs.framework.guestbook.domain.User;
 import com.maplelabs.framework.guestbook.domain.UserComment;
 import com.maplelabs.framework.guestbook.repository.UserCommentRepository;
-import com.maplelabs.framework.guestbook.repository.UserRepository;
 import com.maplelabs.framework.guestbook.service.UserCommentService;
-import com.maplelabs.framework.guestbook.service.UserService;
 
 @Component("userCommentService")
 @Transactional

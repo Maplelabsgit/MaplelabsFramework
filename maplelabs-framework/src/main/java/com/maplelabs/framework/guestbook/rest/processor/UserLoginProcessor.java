@@ -1,33 +1,29 @@
 package com.maplelabs.framework.guestbook.rest.processor;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
+import java.util.List;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.maplelabs.framework.guestbook.authenticator.AbstractAuthenticator;
+import com.maplelabs.framework.guestbook.authenticator.AuthenticatorFactory;
+import com.maplelabs.framework.guestbook.domain.User;
 import com.maplelabs.framework.guestbook.service.UserService;
 
 // Component annotation must be defined for creation of Autowired fields in Rest Controllers
-@Component
-public class UserLoginProcess
+@Component("userLoginProcessor")
+public class UserLoginProcessor
 		extends
 		RestProcessor<com.maplelabs.framework.guestbook.response.User> {
 	
 	@Autowired
-	private UserService userService;
+	UserService userService;
 	
 	private com.maplelabs.framework.guestbook.domain.User domain;
 	private com.maplelabs.framework.guestbook.response.User model;
+	private String authType;
 	
-	public UserService getUserService() {
-		return userService;
-	}
-
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
 	public com.maplelabs.framework.guestbook.domain.User getDomain() {
 		return domain;
 	}
@@ -45,26 +41,35 @@ public class UserLoginProcess
 	}
 
 
+	public String getAuthType() {
+		return authType;
+	}
+
+	public void setAuthType(String authType) {
+		this.authType = authType;
+	}
+	
+	@Override
+	protected void preProcess() {
+		model = new com.maplelabs.framework.guestbook.response.User();
+		
+		model.setUsername((String) ((List) request.data).get(0));
+		model.setPassword((String) ((List) request.data).get(1));
+		authType = (String) ((List) request.data).get(2);
+	}
+
 	@Override
 	public void doProcess() {
-		
-			//userService.createUser(domain);
-			
-			try {
-				domain = userService.findUserByName(model.getUsername());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			if(domain==null){
-				throw new WebApplicationException("user not exist",Response.Status.UNAUTHORIZED);
-				
-			}else if(!domain.getPassword().equals(model.getPassword())){
-				throw new WebApplicationException("password not correct", Response.Status.UNAUTHORIZED);
-			}
-			
-		
+
+		AbstractAuthenticator authenticator;
+		try {
+			authenticator = AuthenticatorFactory.getAuthenticator(authType);
+			domain = (User) authenticator.authenticate(model.getUsername(), model.getPassword());
+		} catch (BeansException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

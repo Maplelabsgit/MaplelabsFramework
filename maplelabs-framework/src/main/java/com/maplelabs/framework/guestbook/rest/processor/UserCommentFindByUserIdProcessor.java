@@ -49,6 +49,8 @@ public class UserCommentFindByUserIdProcessor extends RestProcessor<String>{
 	@Override
 	protected void doProcess() {
 		
+		userId = (int) request.data;
+		
         try {
         	userCommentList = this.userCommentService.findUserCommentsByUserId(userId);
 		} catch (Exception e) {

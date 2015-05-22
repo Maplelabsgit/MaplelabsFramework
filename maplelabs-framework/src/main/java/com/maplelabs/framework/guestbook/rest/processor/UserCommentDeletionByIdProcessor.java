@@ -34,6 +34,8 @@ public class UserCommentDeletionByIdProcessor extends RestProcessor<String>{
 	@Override
 	protected void doProcess() {
 		
+		id = (int) request.data;
+		
 		JSONObject json = new JSONObject();
     	
         try {

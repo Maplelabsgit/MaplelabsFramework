@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.maplelabs.framework.guestbook.response.UserComment;
 import com.maplelabs.framework.guestbook.service.UserCommentService;
 import com.maplelabs.framework.guestbook.service.UserService;
 
@@ -56,6 +57,8 @@ public class UserCommentCreationProcessor extends RestProcessor<String> {
 
 	@Override
 	protected void preProcess() {
+		model = (UserComment) request.data;
+		
 		domain = new com.maplelabs.framework.guestbook.domain.UserComment();
 		
 		domain.setComment(model.getComment());

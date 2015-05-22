@@ -1,8 +1,10 @@
 package com.maplelabs.framework.guestbook.rest.processor;
 
+import com.maplelabs.framework.guestbook.response.RestRequest;
 
 public abstract class RestProcessor<T> {
 	
+	protected RestRequest request = null; 
 	protected T result = null;
 	
 	protected void preProcess() {
@@ -23,4 +25,13 @@ public abstract class RestProcessor<T> {
 		
 		return result;
 	}
+
+	public RestRequest getRequest() {
+		return request;
+	}
+
+	public void setRequest(RestRequest request) {
+		this.request = request;
+	}
+	
 }

@@ -18,6 +18,8 @@ package com.maplelabs.framework.guestbook.service.impl;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +33,7 @@ import com.maplelabs.framework.guestbook.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	private final UserRepository userRepository;
-
+	
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;

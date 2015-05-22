@@ -3,6 +3,7 @@ package com.maplelabs.framework.guestbook.rest.processor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.maplelabs.framework.guestbook.response.User;
 import com.maplelabs.framework.guestbook.service.UserService;
 
 // Component annotation must be defined for creation of Autowired fields in Rest Controllers
@@ -43,6 +44,8 @@ public class UserCreationProcessor
 
 	@Override
 	public void preProcess() {
+		model = (User) request.data;
+		
 		domain = new com.maplelabs.framework.guestbook.domain.User();
 		
 		domain.setId(model.getId());
