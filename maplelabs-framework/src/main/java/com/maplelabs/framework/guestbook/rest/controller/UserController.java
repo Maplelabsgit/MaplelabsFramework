@@ -26,12 +26,12 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public Response login(@RequestParam("username") String username,
-			@RequestParam("password") String password) {
+			@RequestParam("password") String password, @RequestParam("authType") String authType) {
 
 		List<String> input = new ArrayList<String>();
 		input.add(username);
 		input.add(password);
-		input.add("DB");
+		input.add(authType);
 
 		restDelegator.setRequest(new RestRequest<List<String>>(input));
 		restDelegator.setServiceType("UserLogin");
@@ -53,7 +53,6 @@ public class UserController {
 			@RequestParam("password") String password,
 			@RequestParam("emailAddress") String emailAddress,
 			@RequestParam("address") String address) {
-		User user = null;
 		User input = new User();
 
 		input.setUsername(username);
