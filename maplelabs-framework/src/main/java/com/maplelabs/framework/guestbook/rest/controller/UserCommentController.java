@@ -13,11 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.maplelabs.framework.guestbook.response.RestRequest;
 import com.maplelabs.framework.guestbook.response.UserComment;
 import com.maplelabs.framework.guestbook.rest.delegators.RestDelegator;
-import com.maplelabs.framework.guestbook.rest.processor.UserCommentDeletionByIdProcessor;
-import com.maplelabs.framework.guestbook.rest.processor.UserCommentDeletionByUserIdProcessor;
-import com.maplelabs.framework.guestbook.rest.processor.UserCommentFindByIdProcessor;
-import com.maplelabs.framework.guestbook.rest.processor.UserCommentFindByUserIdProcessor;
-import com.maplelabs.framework.guestbook.rest.processor.UserCommentUpdationProcessor;
 
 @RestController
 public class UserCommentController {

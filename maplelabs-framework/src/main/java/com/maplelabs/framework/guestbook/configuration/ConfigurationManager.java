@@ -17,11 +17,14 @@ public class ConfigurationManager {
 	private AuthConfiguration authConfiguration;
 
 	private RestConfiguration restConfiguration;
+	
+	private SFDCConfiguration sfdcConfiguration;
 
 	private ConfigurationManager() {
 		configuration = new Configuration();
 		authConfiguration = new AuthConfiguration();
 		restConfiguration = new RestConfiguration();
+		sfdcConfiguration = new SFDCConfiguration();
 	}
 
 	public static ConfigurationManager getInstance() {
@@ -41,6 +44,7 @@ public class ConfigurationManager {
 	private void loadConfigurations() {
 		loadAuthConfiguration();
 		loadRestConfiguration();
+		loadSFDCConfiguration();
 	}
 
 	private void loadAuthConfiguration() {
@@ -74,6 +78,17 @@ public class ConfigurationManager {
 		restConfiguration.setRestConfigMap(restMap);
 
 	}
+	
+	private void loadSFDCConfiguration() {
+
+		Properties properties = PropertyLoader
+				.loadproperties(GuestBookConstants.FORCE_CONFIG_FILE);
+
+		sfdcConfiguration.setClientId(properties.getProperty("clientId"));
+		sfdcConfiguration.setClientSecret(properties.getProperty("clientSecret"));
+		sfdcConfiguration.setLoginEndPointUrl(properties.getProperty("loginEndPointUrl"));
+
+	}
 
 	public Configuration getConfiguration() {
 		return configuration;
@@ -97,5 +112,13 @@ public class ConfigurationManager {
 
 	public void setRestConfiguration(RestConfiguration restConfiguration) {
 		this.restConfiguration = restConfiguration;
+	}
+
+	public SFDCConfiguration getSfdcConfiguration() {
+		return sfdcConfiguration;
+	}
+
+	public void setSfdcConfiguration(SFDCConfiguration sfdcConfiguration) {
+		this.sfdcConfiguration = sfdcConfiguration;
 	}
 }

@@ -9,4 +9,6 @@ public class GuestBookConstants {
 	public static final String AUTH_CONFIG_FILE = APP_CONFIG_DIR + "auth-config.properties";
 	
 	public static final String REST_CONFIG_FILE = APP_CONFIG_DIR + "rest-config.properties";
+	
+	public static final String FORCE_CONFIG_FILE = APP_CONFIG_DIR + "force-config.properties";
 }

@@ -12,9 +12,11 @@ import com.maplelabs.framework.guestbook.rest.processor.RestProcessor;
 public class RestDelegator {
 	
 	private Response response = null;
+	@SuppressWarnings("rawtypes")
 	private RestRequest request = null;
 
 	private RestLookUp lookupService = new RestLookUp();
+	@SuppressWarnings("rawtypes")
 	private RestProcessor restService;
 	private String serviceType;
 	
@@ -40,10 +42,12 @@ public class RestDelegator {
 		this.response = response;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public RestRequest getRequest() {
 		return request;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setRequest(RestRequest request) {
 		this.request = request;
 	}

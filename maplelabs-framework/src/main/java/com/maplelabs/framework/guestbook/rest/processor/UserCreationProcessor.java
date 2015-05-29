@@ -60,9 +60,15 @@ public class UserCreationProcessor
 	@Override
 	public void doProcess() {
 		try {
-			userService.createUser(domain);
+			com.maplelabs.framework.guestbook.domain.User user = userService.findUserByName(domain.getUsername());
 			
-			domain = userService.findUserByName(domain.getUsername());
+			if(user == null) { 
+				userService.createUser(domain);
+			
+				domain = userService.findUserByName(domain.getUsername());
+			} else {
+				domain = user;
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
