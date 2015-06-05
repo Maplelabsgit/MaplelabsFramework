@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.maplelabs.framework.guestbook.security;
+package com.cisco.acisizing.acisizing.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -32,7 +32,7 @@ public class CustomConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/index*", "/scripts/**", "/modules/**", "/",
-						"/about", "/login", "/Config/AuthConfig", "/User", "/User/{userId}/Comment", "/User/{userId}/Comment/{commentId}")
+						"/about", "/login", "/Config/AuthConfig", "/User", "/User/{userId}/Comment", "/User/{userId}/Comment/{commentId}", "/Migrate/DB", "/Migrate/APP")
 				.permitAll()
 				.anyRequest()
 				.authenticated()

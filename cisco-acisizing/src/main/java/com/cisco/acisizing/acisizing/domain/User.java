@@ -1,4 +1,4 @@
-package com.maplelabs.framework.guestbook.domain;
+package com.cisco.acisizing.acisizing.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -44,6 +44,10 @@ public class User implements Serializable {
 	private String password;
 
 	private String username;
+	
+	private String firstname;
+	
+	private String lastname;
 
 	//bi-directional many-to-one association to UserComment
 	@OneToMany(mappedBy="tblUser")
@@ -98,6 +102,22 @@ public class User implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public List<UserComment> getTblUserComments() {
