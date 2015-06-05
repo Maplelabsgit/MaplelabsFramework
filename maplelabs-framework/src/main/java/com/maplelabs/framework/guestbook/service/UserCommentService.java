@@ -36,4 +36,5 @@ public interface UserCommentService {
 	public void deleteUserCommentById(int id) throws Exception;
 	
 	public void deleteUserCommentByUserId(int userId) throws Exception;
+	
 }

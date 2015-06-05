@@ -55,7 +55,7 @@ public class UserCommentServiceImpl implements UserCommentService {
 	@Override
 	public UserComment findUserCommentById(int id) throws Exception {
 		UserComment userComment = userCommentRepository.findOne(id);
-		
+
 		return userComment;
 	}
 
@@ -63,8 +63,9 @@ public class UserCommentServiceImpl implements UserCommentService {
 	public List<UserComment> findUserCommentsByUserId(int userId)
 			throws Exception {
 
-		List<UserComment> userCommentList = userCommentRepository.findUserCommentByUserId(userId);
-		
+		List<UserComment> userCommentList = userCommentRepository
+				.findUserCommentByUserId(userId);
+
 		return userCommentList;
 	}
 

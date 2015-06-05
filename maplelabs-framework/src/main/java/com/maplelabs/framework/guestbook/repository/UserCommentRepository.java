@@ -37,5 +37,5 @@ public interface UserCommentRepository extends JpaRepository<UserComment, Intege
 	@Transactional
 	@Query("delete from UserComment uc where uc.tblUser = (select u from User u where u.id = ?1)")
 	void deleteUserCommentByUserId(int userId);
-
+	
 }

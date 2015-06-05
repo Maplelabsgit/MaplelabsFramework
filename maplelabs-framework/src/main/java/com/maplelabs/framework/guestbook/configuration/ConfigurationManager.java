@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import scala.annotation.cloneable;
-
 import com.maplelabs.framework.guestbook.constants.GuestBookConstants;
 
 public class ConfigurationManager {
