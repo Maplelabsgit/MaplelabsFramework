@@ -1,0 +1,5 @@
+BEGIN;
+ALTER TABLE tbl_users 
+ADD COLUMN firstname VARCHAR,
+ADD COLUMN lastname VARCHAR;
+END;

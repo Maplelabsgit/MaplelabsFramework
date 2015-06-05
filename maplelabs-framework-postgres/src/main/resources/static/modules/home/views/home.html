@@ -1,0 +1,22 @@
+<span>
+	<h1>Home</h1>
+	<p><a href="#/login">Logout</a></a></p>
+</span>
+
+
+ <ul class="list-group">
+        <li class="list-group-item" ng-repeat="mess in messages" editable-text="editMess" onaftersave="editComment($data,$index)">{{mess.comment}}
+	        <span class="badge">
+		        <span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="deleteComment($index)"></span>
+		       <!--  <span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-click="editComment($index)"></span> -->
+		    </span>
+        </li>
+    </ul>
+    <div ng-show="showAddComment">
+    	<input ng-model="commentText" ></input>
+    	<button class="btn btn-info" ng-click="addComment()">Add</button>
+    	<div>
+    		<button class="btn btn-info" ng-click="deleteAllComment()">Delete All</button>
+    	</div>
+    </div>
+    <button class="btn btn-info" ng-show="!showAddComment" ng-click="getComments()">getComments</button>
